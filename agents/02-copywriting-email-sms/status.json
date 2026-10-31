@@ -1,0 +1,10 @@
+{
+  "task": "done for today",
+  "progress": 100,
+  "step": "Completed",
+  "needsApproval": false,
+  "message": "Approved via dashboard",
+  "mode": "manual",
+  "updatedAt": "2026-10-31T15:29:20.300Z",
+  "active": true
+}

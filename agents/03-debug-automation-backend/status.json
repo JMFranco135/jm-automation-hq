@@ -1,0 +1,9 @@
+﻿{
+  "task": "Mock issue creation and configuration test",
+  "progress": 60,
+  "step": "Configuring smallest fix",
+  "needsApproval": false,
+  "message": "Implementing smallest fix for mock GHL -> n8n 403 rate limit with test plan.",
+  "mode": "manual",
+  "updatedAt": "2026-10-31T22:44:35.232Z"
+}
