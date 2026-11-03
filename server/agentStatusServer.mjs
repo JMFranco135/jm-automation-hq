@@ -142,8 +142,8 @@ async function evaluate() {
             if (DEACTIVATE_RE.test(t)) { forcedInactive = true; lastActivity = new Date(ts).getTime() }
           }
         }
-        // find first user message
-        const firstUser = recs.find(r=>r.type==='user' && r.message && r.message.role==='user')
+        // find first user message that is not a system interrupt / activation noise
+        const firstUser = recs.find(r=>r.type==='user' && r.message && r.message.role==='user' && r.message.content && typeof r.message.content[0]?.text === 'string' && r.message.content[0].text.trim().length>0)
         if (firstUser) {
           taskGiven = true
           const text = firstUser.message.content?.[0]?.text || ''
@@ -174,6 +174,11 @@ async function evaluate() {
     else if (!latestFile) status = 'INACTIVE'
     else if (forcedInactive) status = 'INACTIVE'
     else if (forcedActive) status = 'ACTIVE'
+    // New session with recent activity but no prior task: treat as ACTIVE for up to ACTIVE_WINDOW_MIN
+    else if (!taskGiven && lastActivity) {
+      const ageMin = (now - lastActivity)/60000
+      status = ageMin <= CONFIG.ACTIVE_WINDOW_MIN ? 'ACTIVE' : 'INACTIVE'
+    }
     else if (!taskGiven) status = 'INACTIVE'
     else {
       const ageMs = lastActivity ? now - lastActivity : Infinity
