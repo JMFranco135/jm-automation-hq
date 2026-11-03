@@ -97,14 +97,15 @@ export default function AgentActivityPanel() {
             <div style={{fontSize:10,color:'var(--muted)'}}>{s.lastSeen}</div>
             <button
               onClick={()=>{
-                const cmd = `cd /d "%USERPROFILE%\\OneDrive\\Desktop\\claude-website\\agents\\${ag.folder}" && start claude`
+                // PowerShell-friendly one-liner: set location then start Claude
+                const cmd = `Set-Location "$env:USERPROFILE\\OneDrive\\Desktop\\claude-website\\agents\\${ag.folder}"; start claude`
                 navigator.clipboard.writeText(cmd)
               }}
               title="Copy terminal command"
-              style={{position:'absolute',right:10,bottom:10,width:28,height:28,display:'flex',alignItems:'center',justifyContent:'center',background:'var(--glass-bg)',border:'1px solid var(--glass-border)',borderRadius:'var(--radius-sm)',color:'white',cursor:'pointer',transition:'transform 0.08s ease, background 0.12s ease',WebkitTapHighlightColor:'transparent',fontSize:14}}
-              onMouseDown={e=>{e.currentTarget.style.transform='translateY(1px) scale(0.96)'; e.currentTarget.style.background='var(--glass-bg-hover, rgba(255,255,255,0.08))'}}
-              onMouseUp={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.background='var(--glass-bg)'}}
-              onMouseLeave={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.background='var(--glass-bg)'}}
+              style={{position:'absolute',right:10,bottom:10,width:28,height:28,display:'flex',alignItems:'center',justifyContent:'center',background:'var(--glass-bg)',border:'1px solid var(--glass-border)',borderRadius:'var(--radius-sm)',color:'var(--muted)',cursor:'pointer',transition:'transform 0.08s ease, background 0.12s ease, opacity 0.12s ease',WebkitTapHighlightColor:'transparent',fontSize:14,opacity:0.6}}
+              onMouseDown={e=>{e.currentTarget.style.transform='translateY(1px) scale(0.96)'; e.currentTarget.style.opacity='0.85'}}
+              onMouseUp={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.opacity='0.6'}}
+              onMouseLeave={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.opacity='0.6'}}
             >⧉</button>
           </div>
         )
