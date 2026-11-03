@@ -80,7 +80,7 @@ export default function AgentActivityPanel() {
         const emoji = emojiMap[s.displayName] || '🤖'
         const hue = [...s.folder].reduce((h,c)=>h+c.charCodeAt(0),0)%360
         return (
-          <div key={ag.folder} className="glass glass-gradient-border" style={{border:'1px solid var(--glass-border)',borderRadius:'var(--radius-md)',padding:12,marginBottom:10,background:'var(--glass-bg)'}}>
+          <div key={ag.folder} className="glass glass-gradient-border" style={{border:'1px solid var(--glass-border)',borderRadius:'var(--radius-md)',padding:12,marginBottom:10,background:'var(--glass-bg)',position:'relative'}}>
             <div style={{display:'flex',gap:10,alignItems:'center',marginBottom:8}}>
               <div style={{width:36,height:36,borderRadius:'var(--radius-sm)',background:`hsl(${hue} 70% 45%)`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,flexShrink:0}}>{emoji}</div>
               <div style={{flex:1,minWidth:0}}>
@@ -95,19 +95,17 @@ export default function AgentActivityPanel() {
             <div style={{fontSize:13,marginBottom:2,fontWeight:500}}>{truncate(sanitize(s.task||''),100)}</div>
             <div style={{fontSize:12,color:'var(--muted)',marginBottom:6}}>{currentAction}</div>
             <div style={{fontSize:10,color:'var(--muted)'}}>{s.lastSeen}</div>
-            <div style={{display:'flex',gap:6,marginTop:8}}>
-              <button
-                onClick={()=>{
-                  const cmd = `cd /d "%USERPROFILE%\\OneDrive\\Desktop\\claude-website\\agents\\${ag.folder}" && start claude`
-                  navigator.clipboard.writeText(cmd)
-                }}
-                title="Copy terminal command"
-                style={{flex:1,padding:'6px 8px',fontSize:12,background:'var(--glass-bg)',border:'1px solid var(--glass-border)',borderRadius:'var(--radius-sm)',color:'white',cursor:'pointer',transition:'transform 0.08s ease, background 0.12s ease',WebkitTapHighlightColor:'transparent'}}
-                onMouseDown={e=>{e.currentTarget.style.transform='translateY(1px) scale(0.98)'; e.currentTarget.style.background='var(--glass-bg-hover, rgba(255,255,255,0.08))'}}
-                onMouseUp={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.background='var(--glass-bg)'}}
-                onMouseLeave={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.background='var(--glass-bg)'}}
-              >Copy terminal</button>
-            </div>
+            <button
+              onClick={()=>{
+                const cmd = `cd /d "%USERPROFILE%\\OneDrive\\Desktop\\claude-website\\agents\\${ag.folder}" && start claude`
+                navigator.clipboard.writeText(cmd)
+              }}
+              title="Copy terminal command"
+              style={{position:'absolute',right:10,bottom:10,width:28,height:28,display:'flex',alignItems:'center',justifyContent:'center',background:'var(--glass-bg)',border:'1px solid var(--glass-border)',borderRadius:'var(--radius-sm)',color:'white',cursor:'pointer',transition:'transform 0.08s ease, background 0.12s ease',WebkitTapHighlightColor:'transparent',fontSize:14}}
+              onMouseDown={e=>{e.currentTarget.style.transform='translateY(1px) scale(0.96)'; e.currentTarget.style.background='var(--glass-bg-hover, rgba(255,255,255,0.08))'}}
+              onMouseUp={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.background='var(--glass-bg)'}}
+              onMouseLeave={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.background='var(--glass-bg)'}}
+            >⧉</button>
           </div>
         )
       })}
