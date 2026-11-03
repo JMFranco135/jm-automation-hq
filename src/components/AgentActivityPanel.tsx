@@ -102,7 +102,10 @@ export default function AgentActivityPanel() {
                   navigator.clipboard.writeText(cmd)
                 }}
                 title="Copy terminal command"
-                style={{flex:1,padding:'6px 8px',fontSize:12,background:'var(--glass-bg)',border:'1px solid var(--glass-border)',borderRadius:'var(--radius-sm)',color:'white',cursor:'pointer'}}
+                style={{flex:1,padding:'6px 8px',fontSize:12,background:'var(--glass-bg)',border:'1px solid var(--glass-border)',borderRadius:'var(--radius-sm)',color:'white',cursor:'pointer',transition:'transform 0.08s ease, background 0.12s ease',WebkitTapHighlightColor:'transparent'}}
+                onMouseDown={e=>{e.currentTarget.style.transform='translateY(1px) scale(0.98)'; e.currentTarget.style.background='var(--glass-bg-hover, rgba(255,255,255,0.08))'}}
+                onMouseUp={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.background='var(--glass-bg)'}}
+                onMouseLeave={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.background='var(--glass-bg)'}}
               >Copy terminal</button>
             </div>
           </div>
