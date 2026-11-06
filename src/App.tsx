@@ -9,7 +9,17 @@ import ObsidianBrain from './components/ObsidianBrain'
 // import SOPLibrary from './components/SOPLibrary'
 
 function App() {
-  const [active, setActive] = useState('brain')
+  const [active, setActive] = useState(() => {
+    const params = new URLSearchParams(window.location.search)
+    return params.get('view') || 'dashboard'
+  })
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    params.set('view', active)
+    const newUrl = `${window.location.pathname}?${params.toString()}`
+    window.history.replaceState({}, '', newUrl)
+  }, [active])
   const url = import.meta.env.VITE_PIXEL_AGENTS_URL as string | undefined
   const [error, setError] = useState<string | null>(null)
   const [reachable, setReachable] = useState<boolean | null>(null)

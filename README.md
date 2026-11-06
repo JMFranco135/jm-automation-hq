@@ -19,7 +19,7 @@ npm run dev
 ```
 Open http://127.0.0.1:5174
 
-Default view is Obsidian Graph. Sidebar → LIBRARY → Obsidian Brain opens the live vault graph.
+Default view is Dashboard. Use ?view=brain to open Obsidian Graph directly, e.g. http://127.0.0.1:5174/?view=brain
 
 ## Notes
 - Everything binds to 127.0.0.1 only.
