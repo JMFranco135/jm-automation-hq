@@ -5,10 +5,11 @@ import TopBar from './components/TopBar'
 import IframePanel from './components/IframePanel'
 import AgentSetup from './components/AgentSetup'
 import AgentActivityPanel from './components/AgentActivityPanel'
+import ObsidianBrain from './components/ObsidianBrain'
 // import SOPLibrary from './components/SOPLibrary'
 
 function App() {
-  const [active, setActive] = useState('dashboard')
+  const [active, setActive] = useState('brain')
   const url = import.meta.env.VITE_PIXEL_AGENTS_URL as string | undefined
   const [error, setError] = useState<string | null>(null)
   const [reachable, setReachable] = useState<boolean | null>(null)
@@ -61,8 +62,9 @@ function App() {
               </div>
             )}
             {active === 'agents' && <AgentSetup />}
+            {active === 'brain' && <ObsidianBrain />}
             {/* {active === 'sops' && <SOPLibrary />} */}
-            {active !== 'dashboard' && active !== 'agents' && /* active !== 'sops' && */ (
+            {active !== 'dashboard' && active !== 'agents' && active !== 'brain' && /* active !== 'sops' && */ (
               <div style={{ padding: 24, color: 'var(--muted)' }}>Page for {active} coming in next phase.</div>
             )}
           </main>
